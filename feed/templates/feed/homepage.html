@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %}HomePage{% endblock %}
 
@@ -17,11 +18,14 @@
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>
               <p class="card-text">{{ post.text }}</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <a href="{% url "feed:detail" post.id %}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on {{ post.date|date:"F j, Y, g:i:a" }} by
-              <a href="#">Start Bootstrap</a>
+              {% thumbnail post.author.profile.image "40x40" crop='center' as img %}
+                <img src="{{ img.url }}" class="img-fluid img-thumbnail">
+              {% endthumbnail %}
+              <a href="#">{{ post.author.username|capfirst }}</a>
             </div>
           </div>
         {% endfor %}

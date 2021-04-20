@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}{{ post.text|capfirst }}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col card">
+        <div class="card-header text-center">
+          <h3 class="card-title">{{ post.text|capfirst }}</h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ post.text }}</p>
+        </div>
+        <div class="card-footer text-muted">
+          Posted on {{ post.date|date:"F j, Y, g:i:a" }} by
+          {% thumbnail post.author.profile.image "40x40" crop='center' as img %}
+            <img src="{{ img.url }}" class="img-fluid img-thumbnail float-right">
+          {% endthumbnail %}
+          <a href="#">{{ post.author.username|capfirst }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
