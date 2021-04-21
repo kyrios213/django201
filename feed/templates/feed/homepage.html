@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load static %}
 
 {% block title %}HomePage{% endblock %}
 
@@ -21,11 +22,17 @@
               <a href="{% url "feed:detail" post.id %}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              Posted on {{ post.date|date:"F j, Y, g:i:a" }} by
-              {% thumbnail post.author.profile.image "40x40" crop='center' as img %}
-                <img src="{{ img.url }}" class="img-fluid img-thumbnail">
-              {% endthumbnail %}
-              <a href="#">{{ post.author.username|capfirst }}</a>
+              <div class="row">
+                <div class="col" style="padding-top: 5px;">
+                  Posted on {{ post.date|date:"F j, Y, g:i:a" }}
+                </div>
+                <div class="col" style="padding-left: 30rem; padding-top: 7px">
+                  {% thumbnail post.author.profile.image "40x40" crop="center" as img %}
+                    <img src="{{ img.url }}" class="img-fluid rounded">
+                  {% endthumbnail %}
+                  <a href="#" class="ml-2">{{ post.author.username|capfirst }}</a>
+                </div>
+              </div>
             </div>
           </div>
         {% endfor %}
@@ -33,4 +40,6 @@
 
   </div>
 </div>
+
+<script src="{% static 'js/main.js' %}"></script>
 {% endblock %}
